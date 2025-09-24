@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marina Soledad Botta - Estudiante</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===========================================
+           VARIABLES CSS Y RESET
+           =========================================== */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #0ea5e9;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        /* ===========================================
+           UTILIDADES Y COMPONENTES BÁSICOS
+           =========================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--primary-color);
+            font-size: 1.75rem;
+        }
+
+        /* ===========================================
+           HEADER
+           =========================================== */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 100%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .header-content {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow-lg);
+            object-fit: cover;
+            transition: var(--transition);
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary-color);
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+        }
+
+        .profile-info h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info .title {
+            font-size: 1.25rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            min-width: 250px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.9;
+            transition: var(--transition);
+            padding: 0.25rem 0;
+        }
+
+        .contact-item:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .contact-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-item a:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===========================================
+           SOBRE MÍ
+           =========================================== */
+        .about-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            text-align: justify;
+        }
+
+        .about-content p {
+            margin-bottom: 1rem;
+        }
+
+        /* ===========================================
+           EXPERIENCIA LABORAL
+           =========================================== */
+        .experience-item {
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.02) 0%, rgba(14, 165, 233, 0.02) 100%);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .experience-item:hover {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%);
+            transform: translateX(5px);
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--bg-white);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .experience-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .experience-company {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .experience-date {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            background: var(--bg-light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .experience-description ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .experience-description li {
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .experience-description li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* ===========================================
+           EDUCACIÓN
+           =========================================== */
+        .education-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.02) 0%, rgba(5, 150, 105, 0.02) 100%);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--success-color);
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .education-item:hover {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%);
+            transform: translateY(-2px);
+        }
+
+        .education-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-institution {
+            color: var(--success-color);
+            font-weight: 500;
+        }
+
+        .education-date {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            background: var(--bg-light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            height: fit-content;
+        }
+
+        /* ===========================================
+           HABILIDADES
+           =========================================== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .skill-percentage {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--bg-light);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        /* ===========================================
+           PROYECTOS
+           =========================================== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tech {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            color: var(--accent-color);
+            transform: translateX(3px);
+        }
+
+        /* ===========================================
+           IDIOMAS
+           =========================================== */
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            transition: var(--transition);
+        }
+
+        .language-item:hover {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%);
+            transform: translateY(-2px);
+        }
+
+        .language-name {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .language-level {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           FOOTER
+           =========================================== */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+        }
+
+        .footer-text {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* ===========================================
+           ANIMACIONES
+           =========================================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* ===========================================
+           RESPONSIVE DESIGN
+           =========================================== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .header {
+                padding: 2rem 0;
+            }
+
+            .header-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+                margin: 0 auto;
+            }
+
+            .profile-info h1 {
+                font-size: 2rem;
+            }
+
+            .contact-info {
+                min-width: auto;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .education-item {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .languages-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-info h1 {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+        }
+
+        /* ===========================================
+           OPTIMIZACIÓN PARA IMPRESIÓN
+           =========================================== */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            body {
+                background: white !important;
+            }
+
+            .header {
+                background: var(--primary-color) !important;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .card {
+                box-shadow: none !important;
+                border: 1px solid var(--border-color) !important;
+                break-inside: avoid;
+            }
+
+            .section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .social-links {
+                display: none;
+            }
+
+            .project-link {
+                color: var(--text-dark) !important;
+            }
+
+            .skill-progress::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="profile-photo">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h1>Marina Soledad Botta</h1>
+                    <p class="title">Estudiante</p>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:bottamarina66@gmail.com">bottamarina66@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>3764676523</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Posadas, Misiones</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <a href="#" target="_blank">LinkedIn</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <a href="#" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- SOBRE MÍ -->
+        <section class="section">
+            <div class="card">
+                <h2 class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    Sobre mí
+                </h2>
+                <div class="about-content">
+                    <p>
+                        Soy una estudiante apasionada y dedicada, actualmente cursando el Técnico Superior en Preceptor en la Fundación Alfa. Me caracterizo por mi compromiso con el aprendizaje continuo y mi fuerte orientación hacia el desarrollo personal y profesional.
+                    </p>
+                    <p>
+                        Mi objetivo es contribuir de manera significativa en el ámbito educativo, aplicando los conocimientos y habilidades que estoy adquiriendo durante mi formación. Me interesa especialmente el trabajo con jóvenes y la creación de ambientes de aprendizaje positivos y constructivos.
+                    </p>
+                    <p>
+                        Busco oportunidades que me permitan crecer profesionalmente mientras aporto valor a las instituciones y comunidades donde me desempeñe.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCIA LABORAL -->
+        <section class="section">
+            <div class="card">
+                <h2 class="section-title">
+                    <i class="fas fa-briefcase"></i>
+                    Experiencia Laboral
+                </h2>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">Próximamente</div>
+                            <div class="experience-company">En búsqueda de oportunidades</div>
+                        </div>
+                        <div class="experience-date">2024 - Presente</div>
+                    </div>
+                    <div class="experience-description">
+                        <ul>
+                            <li>Actualmente enfocada en mi formación académica</li>
+                            <li>Desarrollando habilidades profesionales a través de estudios teóricos y prácticos</li>
+                            <li>Preparándome para ingresar al mercado laboral en el ámbito educativo</li>
+                            <li>Participando en actividades formativas y de desarrollo personal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCACIÓN -->
+        <section class="section">
+            <div class="card">
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Educación
+                </h2>
+                <div class="education-item">
+                    <div>
+                        <div class="education-title">Técnico Superior en Preceptor</div>
+                        <div class="education-institution">Fundación Alfa</div>
+                    </div>
+                    <div class="education-date">2024 - 2026</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HABILIDADES -->
+        <section class="section">
+            <div class="card">
+                <h2 class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    Habilidades
+                </h2>
+                <div class="skills-grid">
+                    <div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Comunicación</span>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percentage="85"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Trabajo en Equipo</span>
+                                <span class="skill-percentage">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percentage="80"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Organización</span>
+                                <span class="skill-percentage">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percentage="90"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Resolución de Problemas</span>
+                                <span class="skill-percentage">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percentage="75"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Adaptabilidad</span>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percentage="85"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Liderazgo</span>
+                                <span class="skill-percentage">70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percentage="70"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROYECTOS -->
+        <section class="section">
+            <div class="card">
+                <h2 class="section-title">
+                    <i class="fas fa-project-diagram"></i>
+                    Proyectos Destacados
+                </h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-title">Proyecto de Investigación Educativa</div>
+                            <div class="project-tech">Investigación | Análisis | Documentación</div>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-description">
+                                Desarrollo de investigación sobre metodologías educativas modernas como parte de mi formación académica, enfocado en estrategias de enseñanza innovadoras.
+                            </p>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Ver proyecto
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-title">Práctica Profesional</div>
+                            <div class="project-tech">Educación | Gestión | Comunicación</div>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-description">
+                                Participación en prácticas supervisadas en instituciones educativas, aplicando conocimientos teóricos en contex
